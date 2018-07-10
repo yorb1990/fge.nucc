@@ -3,7 +3,7 @@ namespace fge\nucc\controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-class tokenController extends Controller
+class nuccController extends Controller
 {
     public function cnuc(Request $request){
         $nuc=$request->input('nuc');
