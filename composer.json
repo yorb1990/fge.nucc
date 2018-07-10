@@ -1,0 +1,23 @@
+{
+    "name": "fge/nucc",
+    "description": "Algoritmo de nuc (verificacion)",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ortega Yañez Brain Rafael",
+            "email": "yorb1990@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5",
+        "laravel/framework": ">=5",
+        "fge/token":"*"
+    },
+    "minimum-stability": "beta",
+    "autoload": {
+        "psr-4": {
+            "fge\\nucc\\": "/"
+        }
+    }    
+}
