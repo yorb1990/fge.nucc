@@ -22,7 +22,7 @@
             clave:"{{env("CLAVE")}}",
             nuc:document.getElementById("nuc").value,
             cvv:document.getElementById("cvv").value};
-        fetch('{{env('APP_URL')}}'+'/fge-tok/cnuc',{
+        fetch('{{env('APP_URL')}}'+'/fge-tok/cnucl',{
             method:'post',
             headers: {
                'Content-Type': 'application/json'
