@@ -1,5 +1,6 @@
 <?php
 namespace fge\nucc\src;
+use fge\token\src\token as token;
 class nuc extends token{
     protected $prefix="";
     protected $year="";

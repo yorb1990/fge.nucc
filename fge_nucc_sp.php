@@ -6,7 +6,7 @@ class fge_nucc_sp extends ServiceProvider
 {
     private $url="http://192.108.24.131/nuc/public/";
     //private $url="http://localhost:8000/";
-    private $envname="URL_FGE-nuc";
+    private $envname="URL_FGE-NUC";
     protected $namespace = 'fge\nuc\controller';
     public function map()
     {

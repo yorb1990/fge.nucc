@@ -22,7 +22,7 @@
             clave:document.getElementById("clave").value,
             nuc:document.getElementById("nuc").value,
             cvv:document.getElementById("cvv").value};
-        fetch('{{env('URL_FGE-TOKEN')}}'+'/fge-tok/mnuc',{
+        fetch('{{env('URL_FGE-NUC')}}'+'/fge-tok/mnuc',{
             method:'post',
             headers: {
                'Content-Type': 'application/json'

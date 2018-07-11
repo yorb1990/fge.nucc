@@ -14,7 +14,7 @@
 <script>
     document.getElementById("singin").onclick=()=>{
         const data={name:document.getElementById("nombre").value};
-        fetch('{{env('URL_FGE-TOKEN')}}'+'/fge-tok/regmod',{
+        fetch('{{env('URL_FGE-NUC')}}'+'/fge-tok/regmod',{
             method:'post',
             headers: {
                'Content-Type': 'application/json'

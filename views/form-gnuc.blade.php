@@ -19,7 +19,7 @@
 <script>
     document.getElementById("singin").onclick=()=>{
         const data={clave:"{{env("CLAVE")}}"};
-        fetch('{{env('URL_FGE-TOKEN')}}'+'/fge-tok/gnuc',{
+        fetch('{{env('URL_FGE-NUC')}}'+'/fge-tok/gnuc',{
             method:'post',
             headers: {
                'Content-Type': 'application/json'
