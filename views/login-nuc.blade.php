@@ -25,7 +25,7 @@
             if(response.ok){
                 response.json()
                 .then(function(json) {            
-                    window.location.href = "/fge_tok/regmod2/"+json.message;
+                    window.location.href = '{{env('APP_URL')}}'+'/fge_tok/regmod2/'+json.message;
                 });
             }else{
                 response.json()
