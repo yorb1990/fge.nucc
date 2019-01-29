@@ -11,7 +11,7 @@ class modulos extends Seeder
      */
     public function run()
     {
-        $id=DB::table('modulos')->insertGetId([
+        /*$id=DB::table('modulos')->insertGetId([
             'name'=>'test','ip'=>'127.1.1.1','created_at'=>\Carbon\Carbon::now()
         ]);
         $clave=\fge\nucc\src\nuc::getclave($id);
