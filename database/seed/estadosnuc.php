@@ -17,7 +17,7 @@ class estadosnuc extends Seeder
             ['id'=>3,'name'=>'movido (de modulo)'],
             ['id'=>4,'name'=>'retomado (dentro modulo)'],
             ['id'=>5,'name'=>'habilitado'],
-            ['id'=>6,'name'=>'desabilitado']
+            ['id'=>6,'name'=>'deshabilitado']
         ]);
     }
 }

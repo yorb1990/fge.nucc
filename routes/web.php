@@ -16,7 +16,7 @@ Route::get('regmod2/{name}', function ($name) {
     }
     return Redirect::to('/');
 });
-Route::get('cnucl', function () {
+/*Route::get('cnucl', function () {
     if(env("CLAVE")==null){
         return Redirect::to('fge_tok/regmod1');
     }
@@ -45,4 +45,4 @@ Route::get('mnuc', function () {
         return Redirect::to('fge_tok/regmod1');
     }
     return view("fge_tok::form-mnuc");
-});
+});*/
