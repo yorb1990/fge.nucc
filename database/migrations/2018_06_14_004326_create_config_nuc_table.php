@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-class CreateTokenNucTable extends Migration
+class CreateConfigNucTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,10 @@ class CreateTokenNucTable extends Migration
      */
     public function up()
     {
-        Schema::create('nuc_token', function (Blueprint $table) {
+        Schema::create('config_nuc', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('token')->unique();
+            $table->string('name');
+            $table->text('clave');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ class CreateTokenNucTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nuc_token');
+        Schema::dropIfExists('config_nuc');
     }
 }

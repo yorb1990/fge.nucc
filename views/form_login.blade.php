@@ -13,8 +13,8 @@
     </div>
 
     <!-- Login Form -->
-    <form>
-      <input type="text" id="email" class="fadeIn second" name="email" placeholder="login">
+    <form action="{{env('APP_URL')}}fge-tok/acceso_nuc" method="post">
+      <input type="text" id="name" class="fadeIn second" name="name" placeholder="login">
       <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
       <input type="submit" class="fadeIn fourth" value="Log In">
     </form>

@@ -2,14 +2,14 @@
 use Illuminate\Http\Request;
 
 Route::get('/acceso_nuc', function() {
-    return view("fge_tok::form-login");
+    return view("fge_tok::form_login");
 });
 
 /*Route::get('/regmod1', function () {
     if(env("CLAVE")==null){
         return view("fge_tok::login-nuc");
     }
-    return Redirect::to('/');    
+    return Redirect::to('/');
 });
 Route::get('regmod2/{name}', function ($name) {
     if(env("CLAVE")==null){
