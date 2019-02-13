@@ -1,6 +1,11 @@
 <?php
 use Illuminate\Http\Request;
-Route::get('/regmod1', function () {
+
+Route::get('/acceso_nuc', function() {
+    return view("fge_tok::form-login");
+});
+
+/*Route::get('/regmod1', function () {
     if(env("CLAVE")==null){
         return view("fge_tok::login-nuc");
     }
@@ -15,7 +20,7 @@ Route::get('regmod2/{name}', function ($name) {
         fclose($fp);
     }
     return Redirect::to('/');
-});
+});*/
 /*Route::get('cnucl', function () {
     if(env("CLAVE")==null){
         return Redirect::to('fge_tok/regmod1');
