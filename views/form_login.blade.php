@@ -3,26 +3,37 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
-<div class="wrapper fadeInDown">
-  <div id="formContent">
-    <!-- Tabs Titles -->
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-    <!-- Icon -->
-    <div class="fadeIn first">
-      <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
-    </div>
-
-    <!-- Login Form -->
-    <form action="{{env('APP_URL')}}fge-tok/acceso_nuc" method="post">
-      <input type="text" id="name" class="fadeIn second" name="name" placeholder="login">
-      <input type="text" id="password" class="fadeIn third" name="password" placeholder="password">
-      <input type="submit" class="fadeIn fourth" value="Log In">
-    </form>
-
-    <!-- Remind Passowrd -->
-    <div id="formFooter">
-      <a class="underlineHover" href="#">Forgot Password?</a>
-    </div>
-
+<body>
+  <div class="container">
+    <div class="row">
+		    <div class="col-md-5 mx-auto">
+			       <div id="first">
+      				<div class="myform form ">
+      					<div class="logo mb-3">
+      						 <div class="col-md-12 text-center">
+      							<h1>Acceso</h1>
+      						 </div>
+      					</div>
+                <form action="{{env('APP_URL')}}fge-tok/acceso_nuc" method="post">
+                 <div class="form-group">
+                    <label for="exampleInputEmail1">Nombre de usuario:</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Ingrese usuario">
+                 </div>
+                 <div class="form-group">
+                    <label for="exampleInputEmail1">Contraseña:</label>
+                    <input type="password" name="password" id="password"  class="form-control" placeholder="Ingrese contraseña">
+                 </div>
+                 <div class="col-md-12 text-center ">
+                    <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Ingresar</button>
+                 </div>
+               </form>
+				    </div>
+			     </div>
+			  </div>
+		</div>
   </div>
-</div>
+</body>
