@@ -7,7 +7,7 @@ use fge\nucc\models\ConfigNucModel;
 Route::post('acceso_nuc', function (Request $request) {
 	// dd(URL::previous());
 	 $http = new Client;
-	 $response = $http->post(env('URL_APP_NUC').'/api/login', [
+	 $response = $http->post(env('FGE-URL-NUC').'/api/login', [
 			'verify' => false,
 			'form_params' => [
 					'email' => $request->input('email'),
@@ -28,7 +28,7 @@ Route::post('acceso_nuc', function (Request $request) {
 	// fclose($fp);
 	// dd($data['success']['token']);
 
-	$response = $http->post(env('URL_APP_NUC').'/api/regmod', [
+	$response = $http->post(env('FGE-URL-NUC').'/api/regmod', [
 		 'verify' => false,
 		 'form_params' => [
 				 'modulo' => env('APP_NAME'),
@@ -55,7 +55,7 @@ Route::get('gnuc', function (Request $request){
 	$nuc = ConfigNucModel::where('name','clave')->first();
 
 	$http = new Client;
-	$response = $http->post(env('URL_APP_NUC').'/api/gnuc', [
+	$response = $http->post(env('FGE-URL-NUC').'/api/gnuc', [
 		 'verify' => false,
 		 'form_params' => [
 				 'clave' => $nuc->clave,
