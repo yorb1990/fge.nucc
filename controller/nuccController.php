@@ -10,20 +10,19 @@ use GuzzleHttp\Client;
 
 class nuccController extends Controller
 {
+
   public function vclave(){
     $nuc = ConfigNucModel::where('name','clave')->first();
     if($nuc == null){
       return \Redirect::to('fge_tok/acceso_nuc')->send();
     }
-
   }
 
    public function gnuc()
    {
      $nuc = ConfigNucModel::where('name','clave')->first();
-
      $http = new Client;
-     $response = $http->post('http://192.108.22.52/nuc.server/public/api/gnuc', [
+     $response = $http->post(env('FGE-URL-NUC').'/api/gnuc', [
         'verify' => false,
         'form_params' => [
             'clave' => $nuc->clave,
@@ -34,12 +33,13 @@ class nuccController extends Controller
       return (object) $data;
     }
 
+
     public function hnuc($carpeta=null, $nuc=null, $cvv = null, $acuerdo = null)
     {
       $n = ConfigNucModel::where('name','clave')->first();
 
       $http = new Client;
-      $response = $http->post('http://192.108.22.52/nuc.server/public/api/hnuc', [
+      $response = $http->post(env('FGE-URL-NUC').'/api/hnuc', [
          'verify' => false,
          'form_params' => [
              'carpeta'  => $carpeta,
