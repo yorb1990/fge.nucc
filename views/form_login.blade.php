@@ -14,17 +14,17 @@
 			       <div id="first">
       				<div class="myform form ">
       					<div class="logo mb-3">
-      						 <div class="col-md-12 text-center">
-      							<h1>Acceso</h1>
-      						 </div>
+                           <div class="col-md-12 text-center">
+                              <h1>Acceso</h1>
+                           </div>
       					</div>
                 <form action="{{env('APP_URL')}}fge-tok/acceso_nuc" method="post">
                  <div class="form-group">
-                    <label for="exampleInputEmail1">Nombre de usuario:</label>
-                    <input type="text" id="name" name="name" class="form-control" placeholder="Ingrese usuario">
+                    <label for="emai">Email:</label>
+                    <input type="text" id="email" name="email" class="form-control" placeholder="Ingrese correo institucional">
                  </div>
                  <div class="form-group">
-                    <label for="exampleInputEmail1">Contraseña:</label>
+                    <label for="password">Contraseña:</label>
                     <input type="password" name="password" id="password"  class="form-control" placeholder="Ingrese contraseña">
                  </div>
                  <div class="col-md-12 text-center ">
