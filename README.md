@@ -9,10 +9,10 @@ registra en `config/app.php`
   fge\nucc\fge_nucc_sp::class
 ]
 ```
-Correr migraciones donde se generá una tabla que almacenará `token de acceso` y `clave del modulo`.
+Correr migraciones donde se genera una tabla que almacenará `token de acceso` y `clave del módulo`.
 
 ## registrate
-(en tu archivo `.env` aparecera la variable `FGE-URL-NUC` que contiene la url del motor del NUC)
+(en tu archivo `.env` aparecerá la variable `FGE-URL-NUC` que contiene la url del motor del NUC)
 <img src="https://i.imgur.com/0z8TCSP.jpg"/>
 
 en tu archivo `.env` configurar la variable `APP_URL` con el nombre de tu proyecto
