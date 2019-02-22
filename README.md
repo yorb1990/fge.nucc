@@ -9,11 +9,26 @@ registra en `config/app.php`
   fge\nucc\fge_nucc_sp::class
 ]
 ```
+Correr migraciones donde se generá una tabla que almacenará `token de acceso` y `clave del modulo`.
+
 ## registrate
 (en tu archivo `.env` aparecera la variable `FGE-URL-NUC` que contiene la url del motor del NUC)
 <img src="https://i.imgur.com/0z8TCSP.jpg"/>
-en tu navegador ingresa a `/fge_tok/regmod1` y registrate 
-<img src="https://i.imgur.com/Sq8Uh6P.gif"/>
-al registrarse te aparecera tu clave unica y te direccionara a la pagina de inicio `/`
-(la clave se encuentra en el `.env` y funcionara para la generacion de tokens nuc y jwt)
-<img src="https://i.imgur.com/QYsyqfx.jpg"/>
+
+en tu archivo `.env` configurar la variable `APP_URL` con el nombre de tu proyecto
+
+Agregar a tu clase
+```
+use fge\nucc\controller\nuccController;
+```
+
+Agregar en tu método constructor, para validar que tienes tokens de acceso.
+```
+(new NuccController)->vclave();
+```
+Método para solicitar NUC
+```
+$nuc = (new NuccController)->gnuc();
+```
+
+Nota: Al solicitar NUC si no cuenta con token y clave es redireccionado a una vista login para generarlos.
