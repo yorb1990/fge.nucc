@@ -14,30 +14,50 @@ class nuccController extends Controller
   public function vclave(){
     $nuc = ConfigNucModel::where('name','clave')->first();
     if($nuc == null){
-      return \Redirect::to('fge_tok/acceso_nuc')->send();
+      // return \Redirect::to('fge_tok/acceso_nuc')->send();
+      $http = new Client;
+      $response = $http->post(env('FGE-URL-NUC').'/api/regmod', [
+         'verify' => false,
+         'form_params' => [
+             'modulo' => env('APP_NAME'),
+             'code' => request('code'),
+         ],
+       ]);
+       $data = json_decode((string) $response->getBody(), true);
+
+       $nuc = ConfigNucModel::FirstOrNew(['name'=>'clave']);
+       $nuc->name  = 'clave';
+       $nuc->clave = $data['message'];
+       $nuc->save();
     }
   }
 
    public function gnuc()
    {
-     $nuc = ConfigNucModel::where('name','clave')->first();
-     $http = new Client;
-     $response = $http->post(env('FGE-URL-NUC').'/api/gnuc', [
-        'verify' => false,
-        'form_params' => [
-            'clave' => $nuc->clave,
-            'code' => request('code'),
-        ],
-    ]);
-      $data = json_decode((string) $response->getBody(), true);
-      return (object) $data;
+     try{
+         $this->vclave();
+         $nuc = ConfigNucModel::where('name','clave')->first();
+         $http = new Client;
+         $response = $http->post(env('FGE-URL-NUC').'/api/gnuc', [
+            'verify' => false,
+            'form_params' => [
+                'clave' => $nuc->clave,
+                'code' => request('code'),
+            ],
+        ]);
+          $data = json_decode((string) $response->getBody(), true);
+          return (object) $data;
+        }catch (\GuzzleHttp\Exception\ConnectException $e) {
+            $message = $e->getMessage();
+            return json_decode($message, false);
+        }
     }
 
 
     public function hnuc($carpeta=null, $nuc=null, $cvv = null, $acuerdo = null)
     {
+      if(!empty($carpeta) && !empty($nuc) && !empty($cvv)){
       $n = ConfigNucModel::where('name','clave')->first();
-
       $http = new Client;
       $response = $http->post(env('FGE-URL-NUC').'/api/hnuc', [
          'verify' => false,
@@ -52,6 +72,9 @@ class nuccController extends Controller
      ]);
        $data = json_decode((string) $response->getBody(), true);
        return (object) $data;
+     }else{
+       return false;
      }
+   }
 
 }

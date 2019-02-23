@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 class fge_nucc_sp extends ServiceProvider
 {
-    private $url="http://192.108.24.131/nuc/public/";
-    private $envname="URL_FGE-NUC";
+    private $url="http://192.108.24.131/fge.nuc.server/public/";
+    private $envname="FGE-URL-NUC";
     protected $namespace = 'fge\nucc\controller';
     public function map()
     {

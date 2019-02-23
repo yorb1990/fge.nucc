@@ -62,6 +62,7 @@ Route::get('gnuc', function (Request $request){
 				 'code' => request('code'),
 		 ],
  ]);
-	 $data = json_decode((string) $response->getBody(), true);
-	 return (object) $data;
+ 	return \Response::json((string) $response->getBody(), $response->getStatusCode());
+	 // $data = json_decode((string) $response->getBody(), true);
+	 // return (object) $data;
 });
