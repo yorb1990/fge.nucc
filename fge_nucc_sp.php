@@ -18,19 +18,19 @@ class fge_nucc_sp extends ServiceProvider
     }
     public function boot()
     {
-        if(env($this->envname)==null){
-            $envFile = app()->environmentFilePath();
-            $str = file_get_contents($envFile)."\n".$this->envname."=".$this->url;
-            $fp = fopen($envFile, 'w');
-            fwrite($fp, $str);
-            fclose($fp);
-        }
+        // if(env($this->envname)==null){
+        //     $envFile = app()->environmentFilePath();
+        //     $str = file_get_contents($envFile)."\n".$this->envname."=".$this->url;
+        //     $fp = fopen($envFile, 'w');
+        //     fwrite($fp, $str);
+        //     fclose($fp);
+        // }
         $this->loadViewsFrom(__DIR__.'/views', 'fge_tok');
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
-        
+
         $this->publishes([
-            __DIR__.'/../public/css' => base_path('public/css'),
-            __DIR__.'/../public/js' => base_path('public/js'),
+            __DIR__.'/public/css' => base_path('public/css'),
+            __DIR__.'/public/js' => base_path('public/js'),
         ], 'nucg-components');
 
         parent::boot();

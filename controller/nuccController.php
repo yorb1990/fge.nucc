@@ -10,7 +10,6 @@ use GuzzleHttp\Client;
 
 class nuccController extends Controller
 {
-
   public function vclave(){
     $nuc = ConfigNucModel::where('name','clave')->first();
     if($nuc == null){
@@ -46,10 +45,10 @@ class nuccController extends Controller
             ],
         ]);
           $data = json_decode((string) $response->getBody(), true);
-          return (object) $data;
+          return  \Response::json($data,200);
         }catch (\GuzzleHttp\Exception\ConnectException $e) {
             $message = $e->getMessage();
-            return json_decode($message, false);
+            return \Response::json($message, 506);
         }
     }
 
