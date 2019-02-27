@@ -27,6 +27,11 @@ class fge_nucc_sp extends ServiceProvider
         }
         $this->loadViewsFrom(__DIR__.'/views', 'fge_tok');
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+        
+        $this->publishes([
+            __DIR__.'/../public/css' => base_path('public/css'),
+            __DIR__.'/../public/js' => base_path('public/js'),
+        ], 'nucg-components');
 
         parent::boot();
     }
