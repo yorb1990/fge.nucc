@@ -19,5 +19,12 @@
         "psr-4": {
             "fge\\nucc\\": "/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "fge\\nucc\\fge_nucc_sp"
+            ]
+        }
     }    
 }
