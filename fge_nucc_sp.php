@@ -2,10 +2,11 @@
 namespace fge\nucc;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use fge\nucc\models\ConfigNucModel;
 class fge_nucc_sp extends ServiceProvider
 {
-    private $url="http://192.108.24.131/fge.nuc.server/public/";
-    private $envname="FGE-URL-NUC";
+    private $url = "http://192.108.24.131/fge.nuc.server/public/";
+    private $envname = "FGE-URL-NUC";
     protected $namespace = 'fge\nucc\controller';
     public function map()
     {
@@ -18,13 +19,14 @@ class fge_nucc_sp extends ServiceProvider
     }
     public function boot()
     {
-        // if(env($this->envname)==null){
-        //     $envFile = app()->environmentFilePath();
-        //     $str = file_get_contents($envFile)."\n".$this->envname."=".$this->url;
-        //     $fp = fopen($envFile, 'w');
-        //     fwrite($fp, $str);
-        //     fclose($fp);
-        // }
+        $nuc = ConfigNucModel::where('name','FGE-URL-NUC')->first();
+        if($nuc == null) {
+            $nuc = ConfigNucModel::FirstOrNew(['name' => $envname]);
+            $nuc->name  = $envname;
+            $nuc->clave = $url;
+            $nuc->save();
+        }
+
         $this->loadViewsFrom(__DIR__.'/views', 'fge_tok');
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
 
