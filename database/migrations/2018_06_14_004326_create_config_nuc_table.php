@@ -13,9 +13,8 @@ class CreateConfigNucTable extends Migration
     public function up()
     {
         Schema::create('config_nuc', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->text('clave');
+            $table->char('clave',4);
+            $table->string('fge_url_nuc');            
             $table->timestamps();
         });
     }

@@ -20,14 +20,6 @@ class fge_nucc_sp extends ServiceProvider
     }
     public function boot()
     {
-        $nuc = ConfigNucModel::where('name','FGE-URL-NUC')->first();
-        if($nuc == null) {
-            $nuc = ConfigNucModel::FirstOrNew(['name' => $this->envname]);
-            $nuc->name  = $this->envname;
-            $nuc->clave = $this->url;
-            $nuc->save();
-        }
-
         $this->loadViewsFrom(__DIR__.'/views', 'fge_tok');
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
 

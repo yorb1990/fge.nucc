@@ -10,18 +10,13 @@ use GuzzleHttp\Client;
 
 class nuccController extends Controller
 {
-	private $baseUrl = '';
 
-	public function __constructor() {
-		$response = ConfigNucModel::where('name','FGE-URL-NUC')->first();
-		$this->baseUrl = ($response)? $response->clave : '' ;
-	}
-
-	public function vclave(){
-		$nuc = ConfigNucModel::where('name','clave')->first();
+	public function vclave() {
+		$nuc = ConfigNucModel::first();
 		if($nuc == null) {
+
 			$http = new Client;
-			$response = $http->post($this->baseUrl.'/api/regmod', [
+			$response = $http->post($nuc->fge_url_nuc.'/api/regmod', [
 				'verify' => false,
 				'form_params' => [
 					'modulo' => env('APP_NAME'),
@@ -30,8 +25,7 @@ class nuccController extends Controller
 			]);
 			$data = json_decode((string) $response->getBody(), true);
 
-			$nuc = ConfigNucModel::FirstOrNew(['name'=>'clave']);
-			$nuc->name  = 'clave';
+		
 			$nuc->clave = $data['message'];
 			$nuc->save();
 		}
@@ -40,10 +34,10 @@ class nuccController extends Controller
    public function gnuc()
    {
 	 try{
-		 $this->vclave();
-		 $nuc = ConfigNucModel::where('name','clave')->first();
+		 //$this->vclave();
+		 $nuc = ConfigNucModel::first();
 		 $http = new Client;
-		 $response = $http->post($this->baseUrl.'/api/gnuc', [
+		 $response = $http->post($nuc->fge_url_nuc.'/api/gnuc', [
 			'verify' => false,
 			'form_params' => [
 				'clave' => $nuc->clave,
@@ -62,9 +56,9 @@ class nuccController extends Controller
 	public function hnuc($carpeta=null, $nuc=null, $cvv = null, $acuerdo = null)
 	{
 		if(!empty($carpeta) && !empty($nuc) && !empty($cvv)) {
-			$n = ConfigNucModel::where('name','clave')->first();
+			$n = ConfigNucModel::first();
 			$http = new Client;
-			$response = $http->post($this->baseUrl.'/api/hnuc', [
+			$response = $http->post($n->fge_url_nuc.'/api/hnuc', [
 				'verify' => false,
 				'form_params' => [
 					'carpeta'  => $carpeta,

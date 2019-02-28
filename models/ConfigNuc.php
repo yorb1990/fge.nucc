@@ -7,5 +7,5 @@ class ConfigNucModel extends Model
 {
     protected $table='config_nuc';
 
-    protected $fillable = ['name', 'clave'];
+    protected $fillable = ['clave', 'fge_url_nuc'];
 }
