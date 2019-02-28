@@ -21,9 +21,9 @@ class fge_nucc_sp extends ServiceProvider
     {
         $nuc = ConfigNucModel::where('name','FGE-URL-NUC')->first();
         if($nuc == null) {
-            $nuc = ConfigNucModel::FirstOrNew(['name' => $envname]);
-            $nuc->name  = $envname;
-            $nuc->clave = $url;
+            $nuc = ConfigNucModel::FirstOrNew(['name' => $this->envname]);
+            $nuc->name  = $this->envname;
+            $nuc->clave = $this->url;
             $nuc->save();
         }
 
