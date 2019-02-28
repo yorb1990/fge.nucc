@@ -8,6 +8,7 @@ class fge_nucc_sp extends ServiceProvider
     private $url = "http://192.108.24.131/fge.nuc.server/public/";
     private $envname = "FGE-URL-NUC";
     protected $namespace = 'fge\nucc\controller';
+    
     public function map()
     {
         Route::prefix('fge-tok')
