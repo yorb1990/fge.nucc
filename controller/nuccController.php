@@ -14,7 +14,7 @@ class nuccController extends Controller
 	{
 		$request->request->add(['url' => env('FGE_URL_NUC')]);
 		$this->validate($request,
-			['aplicacion' => 'required|min:4|max:50',
+			['aplicacion' => 'required|min:3|max:50',
 			'url' => 'required'],
 			['aplicacion.required' => 'El nombre de la aplicación es requerido.',
 			'url.required' => 'No se encontró la ruta de acceso al server (FGE_URL_NUC).'
