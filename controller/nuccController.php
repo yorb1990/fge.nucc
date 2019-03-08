@@ -10,8 +10,61 @@ use GuzzleHttp\Client;
 
 class nuccController extends Controller
 {
+	public function regmod(Request $request)
+	{
+		$request->request->add(['url' => env('FGE_URL_NUC')]);
+		$this->validate($request,
+			['aplicacion' => 'required|min:4|max:50',
+			'url' => 'required'],
+			['aplicacion.required' => 'El nombre de la aplicación es requerido.',
+			'url.required' => 'No se encontró la ruta de acceso al server (FGE_URL_NUC).'
+			]);
 
-	public function vclave() {
+			try{
+				$http = new Client;
+				$response = $http->post($request->input('url').'/api/regmod', [
+					'verify' => false,
+					'form_params' => [
+						'modulo' => $request->input('aplicacion'),
+						'code' => request('code'),
+					],
+				]);
+
+				$data = (object) json_decode((string) $response->getBody(), true);
+			} catch (\GuzzleHttp\Exception\ConnectException $e) {
+				$message = $e->getMessage();
+				return \Response::json(['message' => 'Timed out: Failed to connect',
+										 'errors' => ['aplicacion' => ['Fallo la conexión a '.$request->input('url')]]], 506);
+			}
+		
+			try {
+				$nuc = ConfigNucModel::firstOrNew(['id' => 1]);		
+				$nuc->clave	= $data->message;
+				$nuc->fge_url_nuc = $request->input('url');
+				$nuc->save();
+	
+				return response()->json(['message' => 'Correcto.'],200);
+			} catch (\Exception $e) {
+				return \Response::json(['message' => 'Error interno',
+										 'errors' => ['aplicacion' => ['Error interno consulte con el administrador.']]], 500);
+			}
+
+	}
+
+	public function getmod(Request $request)
+	{
+		try {
+			$nuc = ConfigNucModel::first();
+			$data = ($nuc) ? true : false ;
+	
+			return response()->json($data, 200);
+		} catch (\Exception $e) {
+			return response()->json(['message' => 'Error interno consulte al administrador.'], 500);
+		}
+
+	}
+
+	public function vclave($clave = null, $urlNuc = null) {
 		$nuc = ConfigNucModel::first();
 		if($nuc == null) {
 
@@ -33,25 +86,25 @@ class nuccController extends Controller
 
    public function gnuc()
    {
-	 try{
-		 //$this->vclave();
-		 $nuc = ConfigNucModel::first();
-		 $http = new Client;
-		 $response = $http->post($nuc->fge_url_nuc.'/api/gnuc', [
-			'verify' => false,
-			'form_params' => [
-				'clave' => $nuc->clave,
-				'code' => request('code'),
-			],
-		]);
-		  $data = json_decode((string) $response->getBody(), true);
-		  return  \Response::json($data,200);
-		}catch (\GuzzleHttp\Exception\ConnectException $e) {
+	 	try{
+			//$this->vclave();
+			$nuc = ConfigNucModel::first();
+		 
+			$http = new Client;
+			$response = $http->post($nuc->fge_url_nuc.'/api/gnuc', [
+				'verify' => false,
+				'form_params' => [
+					'clave' => $nuc->clave,
+					'code' => request('code'),
+				],
+			]);
+			$data = json_decode((string) $response->getBody(), true);
+			return  \Response::json($data,200);
+		} catch (\GuzzleHttp\Exception\ConnectException $e) {
 			$message = $e->getMessage();
 			return \Response::json($message, 506);
 		}
 	}
-
 
 	public function hnuc($carpeta=null, $nuc=null, $cvv = null, $acuerdo = null)
 	{
