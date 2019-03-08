@@ -58261,7 +58261,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("clave-component", { attrs: { baseurl: "" } }),
+      _c("clave-component", { attrs: { baseurl: _vm.baseurl } }),
       _vm._v(" "),
       _c("loading", {
         attrs: { loader: "bars", active: _vm.isLoading, "is-full-page": false },
