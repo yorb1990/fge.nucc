@@ -1,34 +1,39 @@
-# Registro y verificador de NUC
-## instalacion
+# Registro y verificación de NUC
+## Instalación
+
+Instalar el paquete
+
 ```
 composer require fge/nucc
 ```
-registra en `config/app.php`
-```
-'providers'=>[
-  fge\nucc\fge_nucc_sp::class
-]
-```
-Correr migraciones donde se genera una tabla que almacenará `token de acceso` y `clave del módulo`.
 
-## registrate
-(en tu archivo `.env` aparecerá la variable `FGE-URL-NUC` que contiene la url del motor del NUC)
-<img src="https://i.imgur.com/0z8TCSP.jpg"/>
+Ejecutar el comando  `php artisan migrate`
 
-en tu archivo `.env` configurar la variable `APP_URL` con el nombre de tu proyecto
+Ejecutar el siguiente comando `php artisan vendor:publish --tag=nucg-components` para instalar el componente de nucg
 
-Agregar a tu clase
+## Registro
+
+Agregar en el archivo `.env` la variable `FGE_URL_NUC` que contiene la url del motor del NUC.
+
+
+Añadir en el html el siguiente script
+
 ```
-use fge\nucc\controller\nuccController;
+<script src="{{asset('js/nucg.js') }}"></script>
+
 ```
 
-Agregar en tu método constructor, para validar que tienes tokens de acceso.
+Solicitar el componente en el formulario
+
 ```
-(new NuccController)->vclave();
-```
-Método para solicitar NUC
-```
-$nuc = (new NuccController)->gnuc();
+<div id="app">
+
+    <nucg-component baseurl="{{url('')}}"> </nucg-component>
+
+</div>
+
 ```
 
-Nota: Al solicitar NUC si no cuenta con token y clave es redireccionado a una vista login para generarlos.
+
+
+Nota: Al solicitar NUC por primera vez se le solicitará el nombre del módulo para que se generé la clave del módulo.
