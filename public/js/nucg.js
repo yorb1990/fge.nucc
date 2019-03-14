@@ -1812,7 +1812,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
- //window.toastr = require('toastr')
 
 Vue.config.productionTip = false;
 Vue.use(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0___default.a);
@@ -1841,8 +1840,9 @@ Vue.use(vue_toasted__WEBPACK_IMPORTED_MODULE_1___default.a, {
       evt.preventDefault();
       var me = this;
       var dataString = {
-        aplicacion: this.form.aplicacion
+        aplicacion: this.form.aplicacion.toUpperCase()
       };
+      console.log(dataString);
       me.isLoading = true;
       me.showModal = false;
       axios.post(this.baseurl + '/fge-tok/regmod', dataString).then(function (_ref) {
@@ -1851,7 +1851,14 @@ Vue.use(vue_toasted__WEBPACK_IMPORTED_MODULE_1___default.a, {
         me.$toasted.show('Bienvenido, se ha registrado correctamente.');
       }).catch(function (error) {
         me.errors = JSON.parse(error.response.request.response);
-        me.errors = me.errors.errors.aplicacion;
+        console.log(me.errors.errors);
+        $.each(me.errors.errors, function (key, value) {
+          me.errors = value;
+          /*$.each(value, function(k, v) {
+              console.log(v);
+              me.errors.push(v);
+          });*/
+        });
         me.isLoading = false;
         me.showModal = true;
       });
