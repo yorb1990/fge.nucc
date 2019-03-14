@@ -1862,13 +1862,11 @@ Vue.use(vue_toasted__WEBPACK_IMPORTED_MODULE_1___default.a, {
       me.isLoading = true;
       axios.post(this.baseurl + '/fge-tok/regmod', dataString).then(function (_ref) {
         var data = _ref.data;
-        console.log(data);
         me.statusBody = true;
         me.isLoading = false;
         me.$toasted.show('Bienvenido, se ha registrado correctamente.');
         me.$refs.modalRegModulo.hide();
       }).catch(function (error) {
-        console.log(error);
         me.error.status = false;
         me.error.errors = JSON.parse(error.response.request.response);
         me.isLoading = false;
@@ -1957,7 +1955,6 @@ Vue.use(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0___default.a);
         me.cvv = data.cvv;
         me.isLoading = false;
       }).catch(function (error) {
-        console.log('Mostrando datos');
         me.btnSolicitar = 1;
         me.isLoading = false;
       });
@@ -1969,7 +1966,6 @@ Vue.use(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0___default.a);
     }
   },
   mounted: function mounted() {
-    console.log('Datos ' + this.baseurl);
     this.nucg();
   },
   computed: {
@@ -70541,7 +70537,7 @@ Vue.component('clave-component', __webpack_require__(/*! ./components/ClaveCompo
 //const Login = require('./components/Auth/Login.vue');
 
 var app = new Vue({
-  el: '#app' //components: { NucgComponent, ClaveComponent }
+  el: '#app_nuc' //components: { NucgComponent, ClaveComponent }
 
 });
 /**

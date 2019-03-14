@@ -85,11 +85,14 @@ class nuccController extends Controller
 	}
 
    public function gnuc()
-   {
-	 	try{
-			//$this->vclave();
-			$nuc = ConfigNucModel::first();
-		 
+   {	 	
+		//$this->vclave();
+		$nuc = ConfigNucModel::first();
+		if (!$nuc) {
+			return \Response::json(['message' => 'Internal Server Error.',
+			'errors' => ['aplicacion' => ['No se encontraron las variables de configuración.']]], 500);
+		}
+		try{
 			$http = new Client;
 			$response = $http->post($nuc->fge_url_nuc.'/api/gnuc', [
 				'verify' => false,
@@ -102,7 +105,8 @@ class nuccController extends Controller
 			return  \Response::json($data,200);
 		} catch (\GuzzleHttp\Exception\ConnectException $e) {
 			$message = $e->getMessage();
-			return \Response::json($message, 506);
+			return \Response::json(['message' => 'Timed out: Failed to connect',
+									'errors' => ['aplicacion' => ['Fallo la conexión a '.$request->input('url')]]], 506);
 		}
 	}
 
