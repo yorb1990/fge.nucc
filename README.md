@@ -37,3 +37,5 @@ Solicitar el componente en el formulario
 
 
 Nota: Al solicitar NUC por primera vez se le solicitará el nombre del módulo para que se generé la clave del módulo.
+
+commit: Actualizando el componente mostrando error de conexión
