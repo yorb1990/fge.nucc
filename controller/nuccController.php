@@ -4,12 +4,19 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use fge\nucc\models\ConfigNucModel;
+use fge\nucc\models\NucSycModel;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Client;
 
 
 class nuccController extends Controller
 {
+	private $config;
+
+	public function __construct(){}
+		$this->config = ConfigNucModel::first();
+	}
+
 	public function regmod(Request $request)
 	{
 		$request->request->add(['url' => env('FGE_URL_NUC')]);
@@ -109,11 +116,25 @@ class nuccController extends Controller
 									'errors' => ['aplicacion' => ['Fallo la conexión a '.$request->input('url')]]], 506);
 		}
 	}
-
-	public function hnuc($carpeta=null, $nuc=null, $cvv = null, $acuerdo = null)
+	
+	// $carpeta=null, $nuc=null, $cvv = null, $acuerdo = null
+	public function hnuc()
 	{
 		if(!empty($carpeta) && !empty($nuc) && !empty($cvv)) {
+			$item = new NucSycModel::firstOrNew(['carpeta' => $data->carpeta, 'nuc' => $data->nuc, 'cvv']);
+			$item->carpeta	= $data->carpeta;
+			$item->nuc		= $data->nuc;
+			$item->cvv		= $data->cvv;
+			$item->acuerdo	= $data->acuerdo;
+			$item->save(); 
+			
+			
+			
 			$n = ConfigNucModel::first();
+			
+			
+			
+			
 			$http = new Client;
 			$response = $http->post($n->fge_url_nuc.'/api/hnuc', [
 				'verify' => false,
