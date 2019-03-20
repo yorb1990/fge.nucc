@@ -26,6 +26,6 @@ class CreateConfigNucTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('config_nuc');
+        Schema::dropIfExists('nuc_config');
     }
 }
