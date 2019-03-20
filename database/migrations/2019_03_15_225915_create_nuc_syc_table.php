@@ -17,7 +17,8 @@ class CreateNucSycTable extends Migration
             $table->bigIncrements('id');
             $table->string('carpeta');  
             $table->string('nuc');  
-            $table->string('cvv');  
+            $table->string('cvv');
+            $table->boolean('acuerdo');  
             $table->timestamps();
         });
     }
