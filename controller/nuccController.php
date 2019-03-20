@@ -11,15 +11,10 @@ use GuzzleHttp\Client;
 
 class nuccController extends Controller
 {
-	private $config;
-
-	public function __construct(){}
-		$this->config = ConfigNucModel::first();
-	}
 
 	public function regmod(Request $request)
 	{
-		$request->request->add(['url' => env('FGE_URL_NUC')]);
+		$request->request->add(['url' => env('FGE_URL_NUC')]);		
 		$this->validate($request,
 			['aplicacion' => 'required|min:3|max:50',
 			'url' => 'required'],
@@ -118,22 +113,17 @@ class nuccController extends Controller
 	}
 	
 	// $carpeta=null, $nuc=null, $cvv = null, $acuerdo = null
-	public function hnuc()
+	public function hnuc($carpeta=null, $nuc=null, $cvv = null, $acuerdo = null)
 	{
 		if(!empty($carpeta) && !empty($nuc) && !empty($cvv)) {
-			$item = new NucSycModel::firstOrNew(['carpeta' => $data->carpeta, 'nuc' => $data->nuc, 'cvv']);
-			$item->carpeta	= $data->carpeta;
-			$item->nuc		= $data->nuc;
-			$item->cvv		= $data->cvv;
-			$item->acuerdo	= $data->acuerdo;
-			$item->save(); 
+			$item = NucSycModel::firstOrNew(['carpeta' => $carpeta, 'nuc' => $nuc, 'cvv' => $cvv]);
+			$item->carpeta	= $carpeta;
+			$item->nuc		= $nuc;
+			$item->cvv		= $cvv;
+			//$item->acuerdo	= $acuerdo;
+			$item->save();			
 			
-			
-			
-			$n = ConfigNucModel::first();
-			
-			
-			
+			$n = ConfigNucModel::first();			
 			
 			$http = new Client;
 			$response = $http->post($n->fge_url_nuc.'/api/hnuc', [
@@ -152,6 +142,24 @@ class nuccController extends Controller
 		} else {
 			return false;
 		}
+   }
+
+	public function bnuc($object = null, $table = null, $data = array())
+	{
+		if($object){
+			$nuc = ($this->gnuc())->getData();
+			$edit = $table::find($object->id);
+			$edit->nuc = $nuc->nuc;
+			$edit->cvv = $nuc->cvv;
+			$edit->save();
+
+			$acuerdo = ($data['acuerdo']) ? $edit[$data['acuerdo']] : true ;
+			
+			$this->hnuc($carpeta = $edit[$data['carpeta']], $nuc = $edit->nuc, $cvv = $edit->cvv, $acuerdo );
+
+			return  \Response::json(['message' => 'Nuc asignado.'],200);
+		}
+		return  \Response::json(['message' => 'No se pudo generar.'],500);
    }
 
 }
