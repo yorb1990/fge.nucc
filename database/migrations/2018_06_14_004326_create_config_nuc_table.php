@@ -12,7 +12,7 @@ class CreateConfigNucTable extends Migration
      */
     public function up()
     {
-        Schema::create('config_nuc', function (Blueprint $table) {
+        Schema::create('nuc_config', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->char('clave',4);
             $table->string('fge_url_nuc');            
