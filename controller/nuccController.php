@@ -120,7 +120,7 @@ class nuccController extends Controller
 			$item->carpeta	= $carpeta;
 			$item->nuc		= $nuc;
 			$item->cvv		= $cvv;
-			//$item->acuerdo	= $acuerdo;
+			$item->acuerdo	= $acuerdo;
 			$item->save();			
 			
 			$n = ConfigNucModel::first();			
