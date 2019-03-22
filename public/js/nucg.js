@@ -1945,6 +1945,8 @@ Vue.use(vue_loading_overlay__WEBPACK_IMPORTED_MODULE_0___default.a);
         var data = _ref.data;
         me.nuc = data.nuc;
         me.cvv = data.cvv;
+        document.getElementById("nuc").value = data.nuc;
+        document.getElementById("cvv").value = data.cvv;
         me.isLoading = false;
       }).catch(function (error) {
         me.btnSolicitar = 1;
