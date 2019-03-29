@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-class CreateConfigNucTable extends Migration
+class CreateNucConfigTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,8 @@ class CreateConfigNucTable extends Migration
         Schema::create('nuc_config', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->char('clave',4);
-            $table->string('fge_url_nuc');            
+            $table->string('fge_url_nuc');
+            $table->string('modelo');
             $table->timestamps();
         });
     }

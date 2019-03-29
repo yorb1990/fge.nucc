@@ -14,12 +14,26 @@ class nuccController extends Controller
 
 	public function regmod(Request $request)
 	{
-		$request->request->add(['url' => env('FGE_URL_NUC')]);		
-		$this->validate($request,
-			['aplicacion' => 'required|min:3|max:50',
-			'url' => 'required'],
-			['aplicacion.required' => 'El nombre de la aplicación es requerido.',
-			'url.required' => 'No se encontró la ruta de acceso al server (FGE_URL_NUC).'
+				/*'modelo' => ['required', function($attribute, $value, $fail){
+					try {
+						\App\Userr::exists();
+					} catch (\Exception $e) {
+						return $fail($e);
+					}
+				}*/
+		//$request->request->add(['url' => env('FGE_URL_NUC')]);		
+
+		$this->validate($request,[
+				'aplicacion' => 'required|min:3|max:50',
+				'url' => 'required|url',
+				'modelo' => 'required'
+			],[
+				'aplicacion.required' => 'El nombre de la aplicación es requerido.',
+				'url.required' => 'No se encontró la ruta de acceso al server',
+				'url.url' => 'El formato de URL no es válido.',
+				'modelo.required' => 'La ruta del Modelo es requerida.',
+
+				
 			]);
 
 			try{
@@ -33,16 +47,18 @@ class nuccController extends Controller
 				]);
 
 				$data = (object) json_decode((string) $response->getBody(), true);
-			} catch (\GuzzleHttp\Exception\ConnectException $e) {
+				
+			} catch (\GuzzleHttp\Exception\RequestException $e) {
 				$message = $e->getMessage();
 				return \Response::json(['message' => 'Timed out: Failed to connect',
-										 'errors' => ['aplicacion' => ['Fallo la conexión a '.$request->input('url')]]], 506);
+										 'errors' => ['url' => ['Fallo la conexión a '.$request->input('url')]]], 506);
 			}
 		
 			try {
 				$nuc = ConfigNucModel::firstOrNew(['id' => 1]);		
 				$nuc->clave	= $data->message;
 				$nuc->fge_url_nuc = $request->input('url');
+				$nuc->modelo = $request->input('modelo');
 				$nuc->save();
 	
 				return response()->json(['message' => 'Correcto.'],200);
@@ -50,7 +66,6 @@ class nuccController extends Controller
 				return \Response::json(['message' => 'Error interno',
 										 'errors' => ['aplicacion' => ['Error interno consulte con el administrador.']]], 500);
 			}
-
 	}
 
 	public function getmod(Request $request)
@@ -105,10 +120,10 @@ class nuccController extends Controller
 			]);
 			$data = json_decode((string) $response->getBody(), true);
 			return  \Response::json($data,200);
-		} catch (\GuzzleHttp\Exception\ConnectException $e) {
+		} catch (\GuzzleHttp\Exception\RequestException $e) {
 			$message = $e->getMessage();
 			return \Response::json(['message' => 'Timed out: Failed to connect',
-									'errors' => ['aplicacion' => ['Fallo la conexión a '.$request->input('url')]]], 506);
+									'errors' => ['nuc' => ['Fallo la conexión.']]], 506);
 		}
 	}
 	
@@ -120,7 +135,7 @@ class nuccController extends Controller
 			$item->carpeta	= $carpeta;
 			$item->nuc		= $nuc;
 			$item->cvv		= $cvv;
-			$item->acuerdo	= $acuerdo;
+			//$item->acuerdo	= $acuerdo;
 			$item->save();			
 			
 			$n = ConfigNucModel::first();			
@@ -161,5 +176,46 @@ class nuccController extends Controller
 		}
 		return  \Response::json(['message' => 'No se pudo generar.'],500);
    }
+
+	public function carpeta(Request $request) {
+		$n = ConfigNucModel::first();
+		if(!$n){
+			return \Response::json(['message' => 'Error interno.',
+				'errors' => ['nuc' => ['No se encontraron datos de configuración.']]], 402);
+		}
+		
+		$carpeta = $n->modelo::find($request->input('id_carpeta'));
+		if(!$carpeta) {
+			return \Response::json(['message' => 'No se encontró carpeta',
+				'errors' => ['nuc' => ['No se encontraron datos de la carpeta.']]], 402);
+		}
+
+		$message = '';
+		if(!$carpeta->nuc) {
+			if(($this->gnuc())->getStatusCode() != '200'){
+				return $this->gnuc();
+			}
+			$nuc = ($this->gnuc())->getData();
+			$carpeta->nuc = $nuc->nuc;
+			$carpeta->cvv = $nuc->cvv;
+			$carpeta->save();
+			$message = 'El NUC se generó correctamente';
+		}
+
+		return \Response::json(['message' => $message,
+								'nuc' => $carpeta->nuc ], 200);		
+		
+	}
+
+	public function conexion()
+	{
+		try {
+			return ConfigNucModel::first();
+		} catch (\Throwable $th) {
+			return \Response::json(['message' => 'Error interno.',
+				'errors' => ['nuc' => ['No se encontraron datos de configuración.']]], 402);
+		}
+		
+	}
 
 }
